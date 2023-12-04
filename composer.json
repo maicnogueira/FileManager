@@ -1,0 +1,19 @@
+{
+  "name": "maicnogueira/filemanager",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "maic",
+      "email": "maic.nd@hotmail.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "maicnogueira\\filemanager\\" : "src/"
+    }
+  }
+}
