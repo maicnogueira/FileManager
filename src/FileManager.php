@@ -8,10 +8,15 @@ class FileManager
 {
     public static function open($file)
     {
-        return file_get_contents($file);
+        if(is_file($file)) {
+            return file_get_contents($file);
+        }else{
+            return false;
+        }
+
     }
 
-    public static function list($dir)
+    protected static function list($dir)
     {
         if(is_dir($dir)){
             return scandir($dir);
@@ -65,9 +70,14 @@ class FileManager
         try {
             if(is_uploaded_file($file)){
                 return move_uploaded_file($file,  $newLocationOrName);
-            }else{
-                return rename($file,  $newLocationOrName);
             }
+
+            if(!is_file($file)){
+                return false;
+            }
+
+            return rename($file,  $newLocationOrName);
+
 
         }catch (\ErrorException $errorException){
             return false;
@@ -84,9 +94,12 @@ class FileManager
     public static function delete($file): bool
     {
         try {
+            if(!is_file($file)){
+                return false;
+            }
             return unlink($file);
         }catch (\ErrorException $errorException){
-            return true;
+            return false;
         }
     }
 
