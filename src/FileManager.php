@@ -20,6 +20,40 @@ class FileManager
         return false;
     }
 
+    public static function listDir($dir)
+    {
+        if(is_dir($dir)){
+            $lettersArray = str_split($dir);
+            $exist = $lettersArray[count($lettersArray) - 1];
+            $files = self::list($dir);
+            $newDir = $dir.($exist !== '/' ? '/' : '');
+           foreach ($files as $index => $file){
+
+               if(is_file($newDir.$file)){
+                   unset($files[$index]);
+               }
+           }
+           return $files;
+        }
+
+        return false;
+    }
+
+    public static function listFiles($dir)
+    {
+        if(is_dir($dir)){
+            $files = self::list($dir);
+            foreach ($files as $index => $file){
+                if(is_dir($file)){
+                    unset($files[$index]);
+                }
+            }
+            return $files;
+        }
+
+        return false;
+    }
+
     public static function exists($file): bool
     {
         return file_exists($file);
