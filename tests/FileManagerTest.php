@@ -35,6 +35,80 @@ class FileManagerTest extends TestCase
             mkdir($this->folder."/pasta3");
         }
 
+        if(!is_dir($this->folder."/new-folder")){
+            mkdir($this->folder."/new-folder");
+        }
+
+    }
+
+    public function testOpen()
+    {
+        $file = FileManager::open($this->folder."/1.pdf");
+        self::assertIsString($file);
+    }
+
+    public function testOpenNotExists()
+    {
+        $file = FileManager::open($this->folder."/12.pdf");
+        self::assertFalse($file);
+    }
+
+    public function testExistsFile()
+    {
+        $file = FileManager::exists($this->folder."/1.pdf");
+        self::assertTrue($file);
+    }
+
+    public function testNotExistsFile()
+    {
+        $file = FileManager::exists($this->folder."/12.pdf");
+        self::assertFalse($file);
+    }
+
+    public function testSaveFile()
+    {
+        if(!is_dir($this->folder."/new-folder")){
+            mkdir($this->folder."/new-folder");
+        }
+        $file = FileManager::save($this->folder."/1.pdf", $this->folder."/new-folder/1.pdf");
+        self::assertTrue($file);
+    }
+
+    public function testNotSaveFile()
+    {
+        if(!is_dir($this->folder."/new-folder")){
+            mkdir($this->folder."/new-folder");
+        }
+        $file = FileManager::save($this->folder."/12.pdf", $this->folder."/new-folder/12.pdf");
+        self::assertFalse($file);
+    }
+
+    public function testRenameFile()
+    {
+
+        $file = FileManager::rename($this->folder."/2.pdf", $this->folder."/10.pdf");
+        self::assertTrue($file);
+    }
+
+    public function testNoRenameFile()
+    {
+
+        $file = FileManager::rename($this->folder."/12.pdf", $this->folder."/13.pdf");
+        self::assertFalse($file);
+    }
+
+    public function testDeleteFile()
+    {
+
+        $file = FileManager::delete($this->folder."/3.pdf");
+        self::assertTrue($file);
+    }
+
+    public function testNoDeleteFile()
+    {
+
+        $file = FileManager::delete($this->folder."/12.pdf");
+        self::assertFalse($file);
     }
 
     public function testListFiles()
