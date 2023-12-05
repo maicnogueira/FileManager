@@ -1,6 +1,6 @@
 {
   "name": "maicnogueira/filemanager",
-  "description": "description",
+  "description": "Um gerenciador de arquivos simples",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
